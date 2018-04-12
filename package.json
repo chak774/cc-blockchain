@@ -1,0 +1,22 @@
+{
+  "name": "cc-blockchain",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watchAll",
+    "start-dev": "nodemon index.js"
+  },
+  "keywords": [
+    "blockchain"
+  ],
+  "author": "Chester Chak",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  },
+  "dependencies": {
+    "crypto-js": "^3.1.9-1",
+    "jest": "^22.4.3"
+  }
+}
