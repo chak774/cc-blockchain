@@ -14,12 +14,12 @@ class Block{
             timestamp: ${timestamp}
             data: ${data}
             lastHash: ${lastHash}
-            hast: ${hash}
+            hash: ${hash}
             `;
     }
 
     static genesis(){
-        return new Block(Date.now(), 'I am a Genesis Block.', '---', '---');
+        return new Block('---', 'I am a Genesis Block.', '---', 'a82ef39f40c9ddae4ff5f7d4e74ca049ebfa31cd9dbd563ec34c64e6a7302c48');
     }
 
     static mineBlock(lastBlock, data){
@@ -31,6 +31,11 @@ class Block{
 
     static hash(timestamp, data, lastHash){
         return SHA256(`${timestamp}${lastHash}${data}`).toString();
+    }
+
+    static blockHash(block) {
+        const { timestamp, lastHash, data } = block;
+        return Block.hash(timestamp, lastHash, data);
     }
 }
 
