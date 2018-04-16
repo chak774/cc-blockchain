@@ -19,7 +19,11 @@ class Block{
     }
 
     static genesis(){
-        return new Block('---', 'I am a Genesis Block.', '---', 'a82ef39f40c9ddae4ff5f7d4e74ca049ebfa31cd9dbd563ec34c64e6a7302c48');
+        const timestamp = '---';
+        const lastHash = '---';
+        const data = 'Genesis'
+        const hash = Block.hash(timestamp, data, lastHash);
+        return new Block(timestamp, data, lastHash, hash);
     }
 
     static mineBlock(lastBlock, data){
@@ -35,7 +39,7 @@ class Block{
 
     static blockHash(block) {
         const { timestamp, lastHash, data } = block;
-        return Block.hash(timestamp, lastHash, data);
+        return Block.hash(timestamp, data, lastHash);
     }
 }
 
