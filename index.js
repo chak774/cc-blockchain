@@ -7,7 +7,13 @@ require('dotenv').config();
 const logger = require('./util//logger/logger').init();
 
 const server = require('./server/server');
-server.start();
+const P2pServer = require('./server/p2p-server');
+const Blockchain = require('./blockchain/blockchain');
+
+const bc = new Blockchain();
+const p2pServer = new P2pServer(bc);
+p2pServer.listen();
+server.start(bc, p2pServer);
 
 
 

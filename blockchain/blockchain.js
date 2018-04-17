@@ -1,3 +1,4 @@
+const logger = require('../util//logger/logger').get();
 const Block = require('./block');
 
 class Blockchain{
@@ -45,6 +46,7 @@ class Blockchain{
         }
 
         this.chain = chain;
+        logger.info("Replaced chain")
         return this.chain;
     }
 

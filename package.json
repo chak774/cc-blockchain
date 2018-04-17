@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll",
-    "start-dev": "nodemon index.js"
+    "start-dev": "nodemon index.js",
+    "start-dev-peer1": "cross-env HTTP_PORT=3002 P2P_PORT=5002 PEERS=ws://localhost:5001 nodemon index.js",
+    "start-dev-peer2": "cross-env HTTP_PORT=3003 P2P_PORT=5003 PEERS=ws://localhost:5001,ws://localhost:5002 nodemon index.js"
   },
   "keywords": [
     "blockchain"
@@ -13,6 +15,7 @@
   "author": "Chester Chak",
   "license": "ISC",
   "devDependencies": {
+    "cross-env": "^5.1.4",
     "nodemon": "^1.17.3"
   },
   "dependencies": {
@@ -21,6 +24,7 @@
     "express": "^4.16.3",
     "jest": "^22.4.3",
     "winston": "^2.4.1",
-    "winston-daily-rotate-file": "^3.0.2"
+    "winston-daily-rotate-file": "^3.0.2",
+    "ws": "^5.1.1"
   }
 }

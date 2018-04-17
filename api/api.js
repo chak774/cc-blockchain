@@ -1,8 +1,6 @@
 const logger = require('../util//logger/logger').get();
-const Blockchain = require('../blockchain/blockchain');
 
-module.exports = (app) => {
-    const bc = new Blockchain();
+module.exports = (app, bc, p2pServer) => {
 
     logger.log('info', 'Registering GET /blocks API...');
     app.get('/blocks', (req, res) => {
@@ -16,6 +14,7 @@ module.exports = (app) => {
         logger.log('info', 'Request Body:'+ JSON.stringify(req.body));
         const block = bc.addBlock(req.body.data);
         logger.info('New block added:' , block);
+        p2pServer.syncChains();
         res.redirect('/blocks');
     });
 }
