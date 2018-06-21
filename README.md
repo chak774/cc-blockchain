@@ -24,6 +24,7 @@
 Auto Synchronize Blockchain between peers
 
 ## Blockchain Example
+```json
 [
     {
         "timestamp": "---",
@@ -38,3 +39,4 @@ Auto Synchronize Blockchain between peers
         "hash": "73f72b02bfd7b41ac6bfca23b3301702d99442efc4a357229d028008f7b98ffd"
     }
 ]
+```
