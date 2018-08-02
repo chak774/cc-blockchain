@@ -18,6 +18,9 @@
     "cross-env": "^5.1.4",
     "nodemon": "^1.17.3"
   },
+  "jest": {
+    "testURL": "http://localhost/"
+  },
   "dependencies": {
     "crypto-js": "^3.1.9-1",
     "dotenv": "^5.0.1",

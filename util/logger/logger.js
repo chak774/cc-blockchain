@@ -85,8 +85,8 @@ const init = () => {
               name: 'combined-file',
               timestamp: () => {return getNowString();},
               formatter: (options) => {return logFormatter(options)},
-              filename: logDir + 'combined.log',
-              datePattern: 'yyyy-MM-dd.',
+              datePattern: 'YYYY-MM-DD',
+              filename: logDir + 'combined.%DATE%.log',
               prepend: true,
               level: 'info',
               zippedArchive: true
@@ -95,8 +95,8 @@ const init = () => {
                 name: 'error-file',
                 timestamp: () => {return getNowString();},
                 formatter: (options) => {return logFormatter(options)},
-                filename: logDir + 'error.log',
-                datePattern: 'yyyy-MM-dd.',
+                datePattern: 'YYYY-MM-DD',
+                filename: logDir + 'error.%DATE%.log',
                 prepend: true,
                 level: 'error',
                 zippedArchive: true
