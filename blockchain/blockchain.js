@@ -16,17 +16,17 @@ class Blockchain{
     static isValidChain(chain){
         //Check Genesis Blocks
         if(JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())){
-            console.debug("The incoming chain's genesis block is not valid.")
+            logger.debug("The incoming chain's genesis block is not valid.")
             return false;
         }
         //Check Against Last Hash & Hash
         for(let i = 1; i < chain.length; i++){
             if(chain[i].lastHash !== chain[i-1].hash){
-                console.debug("The chain's blocks' hash & last hash are not sync.")
+                logger.debug("The chain's blocks' hash & last hash are not sync.")
                 return false;
             }
             if(chain[i].hash !== Block.blockHash(chain[i])){
-                console.debug("The chain's blocks' hash are modified.")
+                logger.debug("The chain's blocks' hash are modified.")
                 return false;
             }
         }
@@ -37,16 +37,16 @@ class Blockchain{
     replaceChain(chain){
         //Check is longer than self
         if(chain.length<=this.chain.length){
-            console.debug("The incoming chain is not longer than original chain.")
+            logger.debug("The incoming chain is not longer than original chain.")
             return false;
         }
         if(!Blockchain.isValidChain(chain)){
-            console.debug("The incoming chain is not valid.")
+            logger.debug("The incoming chain is not valid.")
             return false;
         }
 
         this.chain = chain;
-        console.log("Replaced chain")
+        logger.log("Replaced chain")
         return this.chain;
     }
 
