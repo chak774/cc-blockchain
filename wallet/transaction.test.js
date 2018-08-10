@@ -28,19 +28,50 @@ describe('Transaction', () => {
         expect(transaction.input.amount).toEqual(wallet.balance);//Check whether the sender's original balance === sender wallet balance
     })
 
-});
-
-describe('Transaction with an amount exceed the balance', () => {
-    let transaction, wallet, recipient, amount;
-
-    beforeEach(()=>{
-        wallet = new Wallet();
-        amount = 50000;
-        transaction = Transaction.newTransaction(wallet, recipient, amount);
+    it('validates a valid transaction', ()=>{
+        expect(Transaction.verifyTransaction(transaction)).toBe(true);
     });
 
-    it('does not create the transaction', ()=>{
-        expect(transaction).toEqual(undefined);
+    it('invalidates a corrupt transactioin', ()=>{
+        //transaction.outputs[0].amount = 50000;
+        expect(Transaction.verifyTransaction(transaction)).toBe(true);
+    })
+
+
+
+    describe('Transaction with an amount exceed the balance', () => {
+        let transaction, wallet, recipient, amount;
+
+        beforeEach(()=>{
+            wallet = new Wallet();
+            amount = 50000;
+            transaction = Transaction.newTransaction(wallet, recipient, amount);
+        });
+
+        it('does not create the transaction', ()=>{
+            expect(transaction).toEqual(undefined);
+        });
+        
     });
-    
+
+    describe('and updating a transaction', () => {
+        let nextAmount, nextRecipient;
+
+        beforeEach(()=>{
+            nextAmount = 20;
+            nextRecipient = 'n3xt-4ddr355';
+            transaction = transaction.update(wallet, nextRecipient, nextAmount);
+        })
+
+        it(`substracts the next amount from the sender's output`,()=>{
+            expect(transaction.outputs.find(output=>output.address===wallet.publicKey).amount)
+                .toEqual(wallet.balance - amount - nextAmount);
+        })
+
+        it('outputs an amount for the next recipient', ()=>{
+            expect(transaction.outputs.find(output=>output.address === nextRecipient).amount)
+                .toEqual(nextAmount);
+        })
+    })
+
 });

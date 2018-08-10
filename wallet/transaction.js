@@ -14,6 +14,25 @@ class Transaction {
         this.outputs = [];
     }
 
+    update(senderWallet, recipient, amount){
+        const senderOutput = this.outputs.find(output => output.address === senderWallet.publicKey);
+        
+        //Check hv enough balance first
+        if(amount > senderOutput.amount) {
+            console.log(`Amount: ${amount} exceeds balance.`);
+            return;
+        }
+
+        //Update the sender output's amount first
+        senderOutput.amount = senderOutput.amount - amount;
+        //Add a new output for the new recipient
+        this.outputs.push({amount, address:recipient});
+        //Resign the transaction
+        Transaction.signTransaction(this, senderWallet);
+
+        return this;
+    }
+
     static newTransaction(senderWallet, recipient, amount){
 
         //If sender does not have enough balance, return to end it.
@@ -51,6 +70,14 @@ class Transaction {
                 Later on, this generated signature and the matching public key can be used to verify the  authenticity of the signature.
             */
         }
+    }
+
+    static verifyTransaction(transaction){
+        return ChainUtil.verifySignature(
+            transaction.input.address,
+            transaction.input.signature,
+            ChainUtil.hash(transaction.outputs)
+        );
     }
 
 }
