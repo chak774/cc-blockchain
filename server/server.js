@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const api = require('../api/api')
 const logger = require('../util//logger/logger').get();
 
-const start = (bc, p2pServer) => {
+const start = (bc, p2pServer, tp, wallet, miner) => {
     logger.info("Starting up server...");
     const app = express();
 
@@ -23,7 +23,7 @@ const start = (bc, p2pServer) => {
         next();
     });
 
-    api(app, bc, p2pServer);
+    api(app, bc, p2pServer, tp, wallet, miner);
 
     const server = app.listen(process.env.HTTP_PORT, () => {
         logger.info(`Server started successfully. Listening on port ${process.env.HTTP_PORT}`)

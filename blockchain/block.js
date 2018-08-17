@@ -26,7 +26,7 @@ class Block{
     static genesis(){
         const timestamp = '---';
         const lastHash = '---';
-        const data = 'Genesis'
+        const data = [];
         const hash = Block.hash(timestamp, data, lastHash);
         return new Block(timestamp, data, lastHash, hash, 0, DIFFICULTY);
     }

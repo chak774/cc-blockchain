@@ -1,4 +1,5 @@
 const ChainUtil = require('../chain-util');
+const { MINING_REWARD } = require('../config');
 
 /*
     Transactions objects represent exchanges in the cryptocurrency. 
@@ -33,6 +34,13 @@ class Transaction {
         return this;
     }
 
+    static transactionWithOutputs(senderWallet,outputs){
+        const transaction = new this();
+        transaction.outputs.push(...outputs);
+        Transaction.signTransaction(transaction, senderWallet);
+        return transaction;
+    }
+
     static newTransaction(senderWallet, recipient, amount){
 
         //If sender does not have enough balance, return to end it.
@@ -40,15 +48,27 @@ class Transaction {
             console.log(`Amount: ${amount} exceeds balance`);
             return;
         }
-        const transaction = new this();
-        // ... is an ES6 function to split an array to elements
-        transaction.outputs.push(...[
+
+        return Transaction.transactionWithOutputs(senderWallet, [
             {amount: senderWallet.balance - amount, address: senderWallet.publicKey},
             {amount, address: recipient}
-        ])
-        this.signTransaction(transaction, senderWallet)
+        ]);
 
-        return transaction;
+        //const transaction = new this();
+        // ... is an ES6 function to split an array to elements
+        /*transaction.outputs.push(...[
+            {amount: senderWallet.balance - amount, address: senderWallet.publicKey},
+            {amount, address: recipient}
+        ])*/
+        //this.signTransaction(transaction, senderWallet)
+        //return transaction;
+    }
+
+    static rewardTransaction(minerWallet, blockchainWallet){
+        return Transaction.transactionWithOutputs(blockchainWallet, [{
+            amount: MINING_REWARD, 
+            address: minerWallet.publicKey
+        }]);
     }
 
 
