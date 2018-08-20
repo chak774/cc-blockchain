@@ -20,8 +20,31 @@
 - To get the chain: localhost:3001/blocks
 - To mine: localhost:3001 POST {"data":"lalala"}
 
-## P2P Feature
-Auto Synchronize Blockchain between peers
+## P2P Synchronize Feature
+Auto Synchronize Blockchain & Transaction Pool between peers
+
+## Transaction Pool
+ - contains an array of transactions
+
+## Transaction
+ - id
+ - input (the original information of the sender)
+ - outputs (the latest information of the sender after given out currency & the information of receivers)
+
+## Signing
+
+## Wallet
+ - balance
+ - keyPair
+ - publicKey
+
+## Reward & Mining
+
+## 51% Attack & Proof of Work
+- To replace the whole blockchain, need 51% compution power of the chain.
+- hash = 0 * difficulty + hash
+- nonce = how many time to try to fit the difficulty + hash
+- auto adjust the difficulty to match the mine rate e.g. 3000ms , ( lastblock.timestamp + mine rate > current time stamp? )
 
 ## Blockchain Example
 ```json
